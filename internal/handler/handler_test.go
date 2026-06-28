@@ -5,7 +5,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/jlcoulter/go-api-template/internal/handler"
+	"github.com/jlcoulter/ipam/internal/handler"
 )
 
 func TestHealthz(t *testing.T) {

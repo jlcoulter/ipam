@@ -74,13 +74,13 @@ CI builds and pushes a container image to GHCR on every push to any branch.
 
 ```sh
 # Pull the latest image
-docker pull ghcr.io/<owner>/go-api-template:latest
+docker pull ghcr.io/<owner>/ipam:latest
 
 # Pull a specific commit
-docker pull ghcr.io/<owner>/go-api-template:<sha>
+docker pull ghcr.io/<owner>/ipam:<sha>
 
 # Run
-docker run -p 8080:8080 ghcr.io/<owner>/go-api-template:latest
+docker run -p 8080:8080 ghcr.io/<owner>/ipam:latest
 ```
 
 Replace `<owner>` with your GitHub username or org. Images are tagged with both `latest` and the commit SHA.
