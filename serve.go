@@ -12,8 +12,8 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/spf13/cobra"
 
+	"github.com/jlcoulter/ipam/internal/api"
 	"github.com/jlcoulter/ipam/internal/config"
-	"github.com/jlcoulter/ipam/internal/handler"
 	"github.com/jlcoulter/ipam/internal/logging"
 )
 
@@ -31,8 +31,8 @@ var serveCmd = &cobra.Command{
 		r := chi.NewRouter()
 		r.Use(logging.RequestLogger(logger))
 
-		r.Get("/healthz", handler.Healthz)
-		r.Get("/readyz", handler.Readyz)
+		r.Get("/healthz", api.Healthz)
+		r.Get("/readyz", api.Readyz)
 
 		// TODO: Register IPAM API routes
 
@@ -82,4 +82,3 @@ func parseLogLevel(level string) slog.Level {
 		return slog.LevelInfo
 	}
 }
-

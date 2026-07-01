@@ -1,4 +1,4 @@
-package handler
+package api
 
 import (
 	//"encoding/json"
@@ -80,4 +80,3 @@ func (a *API) handleImport(w http.ResponseWriter, r *http.Request) {
 	// TODO: Upsert discovered hosts
 	// TODO: Return JSON resp with import summary
 }
-
