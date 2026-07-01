@@ -3,7 +3,7 @@ package ipam
 import "time"
 
 // DiscovereredHost represents a host found during a network scan
-type DiscovereredHost struct {
+type DiscoveredHost struct {
 	IP       string
 	Hostname string
 	MAC      string
@@ -11,7 +11,7 @@ type DiscovereredHost struct {
 }
 
 // ScanSubnet performs a ping swwp of a CIDR range
-func ScanSubnet(cidr string) ([]DiscovereredHost, error) {
+func ScanSubnet(cidr string) ([]DiscoveredHost, error) {
 	// TODO: Parse CIDR, iterate all IPs
 	// TODO: Ping each IP concurrently (goroutine pool, ~50 workers)
 	// TODO: Collect responding hosts, attempt MAC resolution
