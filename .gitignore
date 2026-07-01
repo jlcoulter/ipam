@@ -13,3 +13,6 @@ dist/
 # Env
 .env
 .env.local
+
+# DB
+*.db
