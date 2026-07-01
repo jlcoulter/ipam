@@ -1,7 +1,10 @@
 package main
 
-import "fmt"
-import "github.com/spf13/cobra"
+import (
+	"fmt"
+
+	"github.com/spf13/cobra"
+)
 
 var allocateCmd = &cobra.Command{
 	Use:   "allocate <subnet> --host <hostname> [--ip <address>] [--mac <mac>] [--role <role>] [--desc <desc>] [--tags <tags>]",
