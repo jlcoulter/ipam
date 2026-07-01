@@ -6,11 +6,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var dbPath string
+
 func main() {
 	rootCmd := &cobra.Command{
 		Use:   "ipam",
 		Short: "IP address management and host tracker",
 	}
+	rootCmd.PersistentFlags().StringVar(&dbPath, "db", "ipam.db", "./")
 
 	rootCmd.AddCommand(
 		allocateCmd,
@@ -27,3 +30,4 @@ func main() {
 		os.Exit(1)
 	}
 }
+

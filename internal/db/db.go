@@ -36,7 +36,7 @@ type DB struct {
 // Open creates the SQLite database and ensures the schema exists
 func Open(path string) (*DB, error) {
 	// TODO: sql.Open with SQLite driver
-	db, err := sql.Open("sqlite, path")
+	db, err := sql.Open("sqlite", path)
 	if err != nil {
 		return nil, fmt.Errorf("open db: %w", err)
 	}
@@ -101,7 +101,9 @@ func (d *DB) GetSubnet(cidr string) (*Subnet, error) {
 // ListSubnets returns all registered subnets
 func (d *DB) ListSubnets() ([]Subnet, error) {
 	// TODO: SELECT * FROM subnets ORDER BY cidr
-	rows, err := d.db.Query("SELECT id, cidr, name, description, vlan, created_at FROM subnets ORDER BY cidr")
+	rows, err := d.db.Query(
+		"SELECT id, cidr, name, description, vlan, created_at FROM subnets ORDER BY cidr",
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -109,9 +111,15 @@ func (d *DB) ListSubnets() ([]Subnet, error) {
 
 	var subnets []Subnet
 	for rows.Next() {
-		var s Subnet 
-		if err := rows.Scan(&s.ID, &.CIDR, &s.Name, &s.Description, &s.VLAN, &s.CreatedAt);
-		err != nil {
+		var s Subnet
+		if err := rows.Scan(
+			&s.ID,
+			&s.CIDR,
+			&s.Name,
+			&s.Description,
+			&s.VLAN,
+			&s.CreatedAt,
+		); err != nil {
 			return nil, err
 		}
 		subnets = append(subnets, s)

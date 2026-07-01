@@ -45,7 +45,7 @@ func (i *IPAM) Show(ip string) (*db.Host, error) {
 // AddSubnet registered a new subnet
 func (i *IPAM) AddSubnet(cidr, name, desc string, vlan int) error {
 	// TODO: Validate cidr, create subnet record
-	, , err := net.ParseCIDR(cidr)
+	_, _, err := net.ParseCIDR(cidr)
 	if err != nil {
 		return fmt.Errorf("invalid CIDR %q: %w", cidr, err)
 	}
