@@ -1,6 +1,11 @@
 package ipam
 
-import "github.com/jlcoulter/ipam/internal/db"
+import (
+	"fmt"
+	"net"
+
+	"github.com/jlcoulter/ipam/internal/db"
+)
 
 // IPAM provides IP address management operations
 type IPAM struct {
@@ -39,14 +44,18 @@ func (i *IPAM) Show(ip string) (*db.Host, error) {
 
 // AddSubnet registered a new subnet
 func (i *IPAM) AddSubnet(cidr, name, desc string, vlan int) error {
-	return nil
 	// TODO: Validate cidr, create subnet record
+	, , err := net.ParseCIDR(cidr)
+	if err != nil {
+		return fmt.Errorf("invalid CIDR %q: %w", cidr, err)
+	}
+	return i.db.CreateSubnet(cidr, name, desc, vlan)
 }
 
 // Subnets returns all registered subnets
 func (i *IPAM) Subnets() ([]db.Subnet, error) {
-	return nil, nil
 	// TODO: List all subnets
+	return i.db.ListSubnets()
 }
 
 // UpsertHost inserts or updates a host record - used by scan/import
