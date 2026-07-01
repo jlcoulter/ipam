@@ -3,7 +3,6 @@ package db
 import (
 	"database/sql"
 	"fmt"
-	"modernc.org/sqlite"
 )
 
 // Host represents a sing host on the network
@@ -85,8 +84,12 @@ func Open(path string) (*DB, error) {
 
 // CreateSubnet inserts a new subnet record
 func (d *DB) CreateSubnet(cidr, name, desc string, vlan int) error {
-	return nil
 	// TODO: INSERT INTO subnets (cidr, name, description, vlan) VALUES (...)
+	_, err := d.db.Exec(
+		"INSERT INTO subnets (cidr, name, description, vlan) VALUES (?, ?, ?, ?)",
+		cidr, name, desc, vlan,
+	)
+	return err
 }
 
 // GetSubnet retrieves a subnet by CIDR
@@ -97,8 +100,23 @@ func (d *DB) GetSubnet(cidr string) (*Subnet, error) {
 
 // ListSubnets returns all registered subnets
 func (d *DB) ListSubnets() ([]Subnet, error) {
-	return nil, nil
 	// TODO: SELECT * FROM subnets ORDER BY cidr
+	rows, err := d.db.Query("SELECT id, cidr, name, description, vlan, created_at FROM subnets ORDER BY cidr")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var subnets []Subnet
+	for rows.Next() {
+		var s Subnet 
+		if err := rows.Scan(&s.ID, &.CIDR, &s.Name, &s.Description, &s.VLAN, &s.CreatedAt);
+		err != nil {
+			return nil, err
+		}
+		subnets = append(subnets, s)
+	}
+	return subnets, rows.Err()
 }
 
 // UpsertHost inserts or updates a host record (ON CONFLICT ip)
